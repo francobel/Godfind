@@ -10,13 +10,13 @@ mkdir -p scanners/$domain
 ./dependencies/github-dorks.sh $domain
 
 echo "Running amass on $domain"
-#amass enum -d $domain -o subdomains/$domain/amass.subdomains > /dev/null
+amass enum -d $domain -o subdomains/$domain/amass.subdomains > /dev/null
 
 echo "Running subfinder on $domain" 
 subfinder -d $domain -o subdomains/$domain/subfinder.subdomains > /dev/null
 
 echo "Running shosubgo on $domain"
-#./dependencies/shosubgo_linux_1_1 -d $domain -s $shosubgo_api_key
+./dependencies/shosubgo_linux_1_1 -d $domain -s $shosubgo_api_key
 
 echo "Bruteforcing $domain with $subdomain_list"
 shuffledns -d $domain -w $subdomain_list -o subdomains/$domain/shuffledns.subdomains -r dependencies/resolvers.txt
@@ -31,7 +31,7 @@ echo "Running active websites through Aquatone"
 cat subdomains/$domain/all.subdomains | dependencies/aquatone > /dev/null
 
 echo "Running nmap"
-#nmap -T4 -iL subdomains/$domain/all.subdomains -Pn --script http-title -o nmap --open
+nmap -T4 -iL subdomains/$domain/all.subdomains -Pn --script http-title -o nmap --open
 
 echo "Turning domains into IPs for masscan"
 while read p; do
