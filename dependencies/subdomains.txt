@@ -1,0 +1,2 @@
+Add wordlist of possible subdomains.
+I recommend Jason Haddix's all.txt
